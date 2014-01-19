@@ -23,7 +23,7 @@ public final class XhTokenizer extends Tokenizer{
    private XhSeg xs=new XhSeg();
    private char[] buffer=new char[BUF_SIZE];
    //由于这里采用缓存的方式来读取input的内容，故在计算位置偏移上会有一些出入
-   private int rLen;
+   private int rLen,lbLen;
    private TermInfo[] segs;//分词的结果
    private int pos;
 	public XhTokenizer(Reader input) {
@@ -48,6 +48,7 @@ public final class XhTokenizer extends Tokenizer{
 		super.reset();
 		setReader(input);
 		pos=-1;
+		lbLen=rLen=0;
 	}
 	
 	@Override
@@ -57,7 +58,7 @@ public final class XhTokenizer extends Tokenizer{
 			if(pos==-1){
 				int bLen=input.read(buffer);
 				if(bLen==-1)return false;
-				rLen+=bLen;
+				rLen+=lbLen;lbLen=bLen;
 				segs=xs.segment(buffer,bLen);
 				pos=0;
 			}
