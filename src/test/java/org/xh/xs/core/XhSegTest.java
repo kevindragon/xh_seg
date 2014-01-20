@@ -24,7 +24,8 @@ public class XhSegTest {
 	}
 	@Test
 	public void testSegLine(){
-		String line=" this is a good choice!";
+		String line="不错价格很实惠淘宝这家卖的很便宜的旺旺bobechanles";
+		line=CharUtil.filter(line);
 		String[] ss=xs.segment(line);
 		for (String str : ss) {
 			System.out.print(str+" |");

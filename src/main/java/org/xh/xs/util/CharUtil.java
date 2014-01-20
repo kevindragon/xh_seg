@@ -122,28 +122,16 @@ public class CharUtil {
 	 * 对于广告评论，有这个需求
 	 * */
 	public static String filter(String str){
+		if(str==null||str.isEmpty())return str;
 		StringBuffer sb=new StringBuffer();
 		char ch;
-		boolean add=false;
 		for (int i = 0; i < str.length(); i++) {
-			ch=str.charAt(i);
-			if(CharUtil.isSpace(ch)){
-				if(!add){
-					sb.append(ch);add=true;
-				}
-			}else if(CharUtil.isCJKCharacter(ch)||
+			ch=CharUtil.sw(str.charAt(i));
+			if(CharUtil.isCJKCharacter(ch)||
 				CharUtil.isEnglish(ch)||
 				CharUtil.isNumber(ch)){
 				sb.append(ch);
-				add=false;
 			}
-		}
-		if(CharUtil.isSpace(sb.charAt(0))){
-			sb.deleteCharAt(0);
-		}
-		int len=sb.length();
-		if(CharUtil.isSpace(sb.charAt(len-1))){
-			sb.deleteCharAt(len-1);
 		}
 		return sb.toString();
 	}
